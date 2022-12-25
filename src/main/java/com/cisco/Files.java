@@ -2,6 +2,8 @@ package com.cisco;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Files {
     final static String dir = System.getProperty("user.dir")+"\\target\\files\\";
@@ -22,7 +24,7 @@ public class Files {
         }
     }
     public static void searchFiles(String name){
-        String[] ls = getFiles();
+        ArrayList<String> ls = getFiles();
         if (name == null || ls == null) {
             System.out.println("\nFiles does not exist\n");
         } else if (ls != null) {
@@ -37,20 +39,24 @@ public class Files {
         }
         System.out.println("File not present in the application");
     }
-    public static  String[] getFiles(){
+    public static ArrayList<String> getFiles(){
         File obj = new File(dir);
-        System.out.println(obj);
+//        System.out.println(obj);
         String contents[] = obj.list();
-        return contents;
+        ArrayList<String> returnObj = new ArrayList<>();
+        for(String st: contents){
+            returnObj.add(st);
+        }
+        Collections.sort(returnObj);
+        return returnObj;
     }
 
     public static void ListAllFiles(){
-        String[] ls = getFiles();
+        ArrayList<String> ls = getFiles();
         for(String str:ls){
             System.out.println(str);
         }
         System.out.println();
-
     }
 
     public static void Delete(String name){
